@@ -11,7 +11,7 @@ import com.qa.util.JSONUtil;
 public class AccountMapRepository implements AccountRepository{
 
 	private HashMap<Integer, com.qa.persistence.domain.Account> accounts = new HashMap<>();
-	private int counter = 1;
+	
 	private JSONUtil json = new JSONUtil();
 
 	public Account getmyAccount(int accountNumber) {
