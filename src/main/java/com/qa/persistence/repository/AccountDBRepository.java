@@ -68,7 +68,7 @@ public class AccountDBRepository implements AccountRepository {
 	public void setManager(EntityManager manager) {
 		this.manager = manager;		
 	}
-	 
+	
 	public void setUtil(JSONUtil util) {
 		this.util = util;
 	}

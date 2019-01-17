@@ -6,7 +6,7 @@ import com.qa.persistence.domain.Account;
 import com.qa.persistence.repository.AccountRepository;
 import com.qa.util.JSONUtil;
 
-public class AccountServiceImpl implements AccountService {
+public class AccountServiceImplementation implements AccountService {
 	@Inject
 	AccountRepository repo;
 	

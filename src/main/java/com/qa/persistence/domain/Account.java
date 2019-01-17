@@ -1,30 +1,28 @@
 package com.qa.persistence.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 
 @Entity
 public class Account {
-
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private String firstName;
-	private String secondName;
-	@Size(min = 6, max = 6)
+	private String lastName;
 	private String accountNumber;
-
+	
 	public Account() {
 
 	}
-
-	public Account(String firstName, String secondName, String accountNumber) {
+	
+	public Account(String firstName, String lastName, String accountNumber) {
 		this.firstName = firstName;
-		this.secondName = secondName;
+		this.lastName = lastName;
 		this.accountNumber = accountNumber;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public String getFirstName() {
@@ -35,28 +33,16 @@ public class Account {
 		this.firstName = firstName;
 	}
 
-	public String getSecondName() {
-		return secondName;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getAccountNumber() {
 		return accountNumber;
 	}
-
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 }
