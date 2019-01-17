@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 
 import com.qa.business.service.AccountService;
 import com.qa.persistence.domain.Account;
-import com.qa.util.JSONUtil;
+import com.qa.util.JSONUtil; 
 
 @Transactional(SUPPORTS)
 @Default
@@ -27,7 +27,7 @@ public class AccountDBRepository implements AccountRepository {
 
 	@Inject
 	private JSONUtil util;
-
+ 
 	@Override
 	public String getAllAccounts() {
 		Query query = manager.createQuery("Select a FROM Account a");
@@ -51,6 +51,15 @@ public class AccountDBRepository implements AccountRepository {
 			manager.remove(accountInDB);
 		}
 		return "{\"message\": \"account sucessfully deleted\"}";
+	}
+	
+	@Override
+	@Transactional(REQUIRED)
+	public String updateAccount(Long id, String accout) {
+		manager.remove(findAccount(id));
+		Account anAccount = util.getObjectForJSON(accout, Account.class);
+		manager.persist(anAccount);
+		return "{\"message\": \"account sucessfully updated\"}";
 	}
 
 	private Account findAccount(Long id) {
