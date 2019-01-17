@@ -4,6 +4,7 @@ import static javax.transaction.Transactional.TxType.SUPPORTS;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.enterprise.inject.Alternative;
@@ -17,9 +18,7 @@ import com.qa.util.JSONUtil;
 @Alternative
 public class AccountMapRepository implements AccountRepository {
 
-	private AccountRepository repo;
-
-	private HashMap<Integer, com.qa.persistence.domain.Account> accounts = new HashMap<>();
+	private Map<Integer, com.qa.persistence.domain.Account> accounts = new HashMap<>();
 
 	private JSONUtil json = new JSONUtil();
 
@@ -28,15 +27,6 @@ public class AccountMapRepository implements AccountRepository {
 		return json.getJSONForObject(accounts);
 	}
 
-	@Override
-	public String createAccount(String accout) {
-		return repo.createAccount(accout);
-	}
-
-	@Override
-	public String deleteAccount(Long id) {
-		return repo.deleteAccount(id);
-	}
 
 	@Override
 	public String updateAccount(Long id, String accout) {
@@ -52,6 +42,20 @@ public class AccountMapRepository implements AccountRepository {
 		List<Account> newlist = (accounts.values().stream().filter(a -> a.getFirstName() == firstName)
 				.collect(Collectors.toList()));
 		return newlist.size();
+	}
+
+
+	@Override
+	public String createAccount(String accout) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public String deleteAccount(Long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

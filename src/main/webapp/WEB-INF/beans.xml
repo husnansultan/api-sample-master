@@ -25,7 +25,4 @@
       <!-- <alternatives>
         <class>com.qa.service.repository.AccountMapRepository</class>
     </alternatives> -->
-     <!-- <default>
-        <class>com.qa.service.repository.AccountDBRepository</class>
-    </default> -->
 </beans>
