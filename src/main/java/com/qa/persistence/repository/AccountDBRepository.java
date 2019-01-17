@@ -1,6 +1,6 @@
 package com.qa.persistence.repository;
 
-import static javax.transaction.Transactional.TxType.REQUIRED;
+import static javax.transaction.Transactional.TxType.REQUIRED; 
 import static javax.transaction.Transactional.TxType.SUPPORTS;
 
 import java.util.Collection;
@@ -12,66 +12,64 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
-import org.apache.log4j.Logger;
-
-import com.qa.business.service.AccountService;
 import com.qa.persistence.domain.Account;
-import com.qa.util.JSONUtil; 
+import com.qa.util.JSONUtil;
 
 @Transactional(SUPPORTS)
 @Default
 public class AccountDBRepository implements AccountRepository {
-	
 	@PersistenceContext(unitName = "primary")
 	private EntityManager manager;
 
 	@Inject
 	private JSONUtil util;
- 
+	
 	@Override
 	public String getAllAccounts() {
-		Query query = manager.createQuery("Select a FROM Account a");
+		Query query = manager.createQuery("SELECT a FROM Account a");
 		Collection<Account> accounts = (Collection<Account>) query.getResultList();
 		return util.getJSONForObject(accounts);
 	}
 
 	@Override
 	@Transactional(REQUIRED)
-	public String createAccount(String accout) {
-		Account anAccount = util.getObjectForJSON(accout, Account.class);
-		manager.persist(anAccount);
-		return "{\"message\": \"account has been sucessfully added\"}";
+	public String createAccount(Account account) {
+		manager.persist(account);
+		return "{\"message\": \"account sucessfully added\"}";
 	}
 
 	@Override
 	@Transactional(REQUIRED)
-	public String deleteAccount(Long id) {
+	public String deleteAccount(int id) {
 		Account accountInDB = findAccount(id);
 		if (accountInDB != null) {
 			manager.remove(accountInDB);
+			return "{\"message\": \"account sucessfully deleted\"}";
 		}
-		return "{\"message\": \"account sucessfully deleted\"}";
-	}
-	
-	@Override
-	@Transactional(REQUIRED)
-	public String updateAccount(Long id, String accout) {
-		manager.remove(findAccount(id));
-		Account anAccount = util.getObjectForJSON(accout, Account.class);
-		manager.persist(anAccount);
-		return "{\"message\": \"account sucessfully updated yadunoo\"}";
+		return "{\"message\": \"account does not exist\"}";
 	}
 
-	private Account findAccount(Long id) {
+	@Override
+	@Transactional(REQUIRED)
+	public String updateAccount(int id, Account account) {
+		Account accountInDB = findAccount(id);
+		if (accountInDB != null) {
+			manager.remove(accountInDB);
+			manager.persist(account);
+			return "{\"message\": \"account sucessfully updated\"}";
+		}
+		return "{\"message\": \"account does not exist\"}";
+	}
+	
+	private Account findAccount(int id) {
 		return manager.find(Account.class, id);
 	}
 
 	public void setManager(EntityManager manager) {
-		this.manager = manager;
+		this.manager = manager;		
 	}
-
+	 
 	public void setUtil(JSONUtil util) {
 		this.util = util;
 	}
-
 }

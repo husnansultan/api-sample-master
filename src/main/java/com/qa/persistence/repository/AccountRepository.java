@@ -1,10 +1,13 @@
 package com.qa.persistence.repository;
 
+import com.qa.persistence.domain.Account;
+
 public interface AccountRepository {
-
 	String getAllAccounts();
-	String createAccount(String accout);
-	String deleteAccount(Long id);
-	String updateAccount(Long id, String accout);
 
+	String createAccount(Account account);
+
+	String deleteAccount(int id);
+	
+	String updateAccount(int id, Account account);
 }
