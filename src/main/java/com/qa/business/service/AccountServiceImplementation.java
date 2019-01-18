@@ -18,7 +18,7 @@ public class AccountServiceImplementation implements AccountService {
 		return repo.getAllAccounts();
 	}
 
-	@Override
+
 	public String createAccount(String accountJSON) {
 		Account account = util.getObjectForJSON(accountJSON, Account.class);
 		if (account.getAccountNumber().equals("9999")) {
@@ -27,12 +27,10 @@ public class AccountServiceImplementation implements AccountService {
 		return repo.createAccount(account);
 	}
 
-	@Override
-	public String deleteAccount(int id) {
+	public String deleteAccount(Long id) {
 		return repo.deleteAccount(id);
 	}
 
-	@Override
 	public String updateAccount(int id, String accountJSON) {
 		Account account = util.getObjectForJSON(accountJSON, Account.class);
 		return repo.updateAccount(id, account);
@@ -45,4 +43,5 @@ public class AccountServiceImplementation implements AccountService {
 	public void setUtil(JSONUtil util) {
 		this.util = util;
 	}
+
 }
